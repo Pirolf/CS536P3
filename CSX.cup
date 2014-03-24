@@ -74,10 +74,18 @@ terminal                ASSIGN;
  */
 non terminal ProgramNode      program;
 non terminal LinkedList       declList;
+non terminal LinkedList       stmtList;
 non terminal DeclNode         decl;
 non terminal VarDeclNode      varDecl;
 non terminal TypeNode         type;
 non terminal IdNode           id;
+non terminal FormalDeclNode   formalDecl;
+non terminal FormalsNode      formals;
+non terminal FormalsListNode  formalsList;
+non terminal FuncDeclNode     fnDecl;
+non terminal FuncBodyNode     fnBody;
+non terminal StmtNode         stmt;
+non terminal AssignExpNode    assignExp;
  
  
 /* NOTE: Add precedence and associativity declarations here */
@@ -123,4 +131,66 @@ id              ::= ID:i
                 {: RESULT = new IdNode(i.linenum, i.charnum, i.idVal);
                 :}
                 ;
-				
+
+formalDecl      ::= type:t id:i 
+                {:RESULT = new FormalDeclNode(t, i);
+                :}
+                ;
+
+
+formals         ::= LPAREN RPAREN
+                {: RESULT = new FormalsNode();
+
+                :}
+                | LPAREN formalsList:fl RPAREN
+                {: RESULT = new FormalsNode(fl);
+
+                :}
+                ;
+
+formalsList     ::= formalDecl: fd
+                {:RESULT = new FormalsListNode(fd);
+                :}
+                | formalDecl:fd COMMA formalsList:fl
+                {:RESULT = new FormalsListNode(fd, fl);
+                :}
+                ;
+
+fnDecl          ::= type:t id:i formals:f fnBody:fb
+                {: RESULT = new FuncDeclNode(t, i, f, fb);
+                :}   				
+                ;
+
+fnBody          ::= LCURLY varDeclList:vdl stmtList:sl RCURLY
+                {:RESULT = new FuncBodyNode(vdl, sl);
+                :}
+                ;
+
+stmtList        ::= stmtList:sl stmt:s
+                {: sl.addLast(s);
+                   RESULT = sl;
+                :}
+                | /* epsilon */
+                {:RESULT = new LinkedList<StmtNode>();
+                :}
+                ;
+
+stmt            ::= assignExp:ae SEMICOLON
+                {:RESULT = new StmtNode(ae);
+                :}
+                | loc PLUSPLUS SEMICOLON
+                | loc MINUSMINUS SEMICOLON
+                | CIN READ loc SEMICOLON
+                | COUT WRITE exp SEMICOLON
+                | IF LPAREN exp RPAREN LCURLY varDeclList stmtList RCURLY
+                | IF LPAREN exp RPAREN LCURLY varDeclList stmtList RCURLY ELSE LCURLY varDeclList stmtList RCURLY
+                | WHILE LPAREN exp RPAREN LCURLY varDeclList stmtList RCURLY
+                | RETURN exp SEMICOLON
+                | RETURN SEMICOLON
+                | fncall SEMICOLON
+                ;
+
+assignExp       ::= loc:l ASSIGN exp:e
+                {:RESULT = new AssignExp(l, e);
+                :}
+                ;
