@@ -585,6 +585,7 @@ class IntLitNode extends ExpNode {
     }
 
     public void unparse(PrintWriter p, int indent) {
+        p.print(myIntVal);
     }
 
     private int myLineNum;
@@ -600,6 +601,7 @@ class StringLitNode extends ExpNode {
     }
 
     public void unparse(PrintWriter p, int indent) {
+        p.print(myStrVal);
     }
 
     private int myLineNum;
@@ -614,6 +616,7 @@ class TrueNode extends ExpNode {
     }
 
     public void unparse(PrintWriter p, int indent) {
+        p.print("true");
     }
 
     private int myLineNum;
@@ -627,6 +630,7 @@ class FalseNode extends ExpNode {
     }
 
     public void unparse(PrintWriter p, int indent) {
+        p.print("false");
     }
 
     private int myLineNum;
@@ -654,8 +658,12 @@ class DotAccessExpNode extends ExpNode {
         myLoc = loc;	
         myId = id;
     }
-
+    //loc:l DOT id:i
     public void unparse(PrintWriter p, int indent) {
+        doIndent(p, indent);
+        myLoc.unparse(p, 0);
+        p.print(".");
+        myId.unparse(p, 0);
     }
 
     // 2 kids
@@ -668,8 +676,12 @@ class AssignNode extends ExpNode {
         myLhs = lhs;
         myExp = exp;
     }
-
+    //loc ASSIGN exp
     public void unparse(PrintWriter p, int indent) {
+        doIndent(p, indent);
+        myLhs.unparse(p, 0);
+        p.print(" = ");
+        myExp.unparse(p, 0);
     }
 
     // 2 kids
@@ -682,7 +694,7 @@ class CallExpNode extends ExpNode {
         myId = name;
         myExpList = elist;
     }
-
+    //id:i LPAREN RPAREN
     public CallExpNode(IdNode name) {
         myId = name;
         myExpList = new ExpListNode(new LinkedList<ExpNode>());
@@ -690,6 +702,11 @@ class CallExpNode extends ExpNode {
 
     // ** unparse **
     public void unparse(PrintWriter p, int indent) {
+        doIndent(p, indent);
+        myId.unparse(p, 0);
+        p.print("(");
+        myExpList.unparse(p, 0);
+        p.print(")");
     }
 
     // 2 kids
