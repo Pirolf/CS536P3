@@ -106,7 +106,7 @@ precedence left TIMES, DIVIDE;
 
 start with program;
 
-/ Grammar with actions
+/* Grammar with actions
  *
  * NOTE: add more grammar rules below
  */
