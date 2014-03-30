@@ -545,8 +545,10 @@ class CallStmtNode extends StmtNode {
     public CallStmtNode(CallExpNode call) {
         myCall = call;
     }
-
+    //fncall:fc SEMICOLON
     public void unparse(PrintWriter p, int indent) {
+        myCall.unparse(p, indent);
+        p.println(";");
     }
 
     // 1 kid
@@ -557,8 +559,11 @@ class ReturnStmtNode extends StmtNode {
     public ReturnStmtNode(ExpNode exp) {
         myExp = exp;
     }
-
+    //RETURN exp:e SEMICOLON
     public void unparse(PrintWriter p, int indent) {
+        doIndent(p, indent);
+        myExp.unparse(p, 0);
+        p.println("return;");
     }
 
     // 1 kid
