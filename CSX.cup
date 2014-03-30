@@ -325,7 +325,7 @@ exp		::= assignExp:ae
 		;
 
 term		::= loc:l
-		{: RESULT = l
+		{: RESULT = l;
 		:}
 		| INTLITERAL:i
 		{: RESULT = new IntLitNode(i.linenum, i.charnum, i.intVal);
