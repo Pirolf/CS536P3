@@ -83,10 +83,10 @@ non terminal LinkedList       structBody;
 non terminal FormalsListNode  formals;
 non terminal LinkedList       formalsList;
 non terminal FormalDeclNode   formalDecl;
-non terminal FnBodyNode     fnBody;
+non terminal FnBodyNode       fnBody;
 non terminal LinkedList       stmtList;
 non terminal StmtNode         stmt;
-non terminal AssignExpNode    assignExp;
+non terminal AssignNode       assignExp;
 non terminal ExpNode          exp; 
 non terminal ExpNode          term;
 non terminal CallExpNode      fncall;
@@ -235,7 +235,7 @@ stmtList        ::= stmtList:sl stmt:s
                 ;
 
 stmt            ::= assignExp:ae SEMICOLON
-                {: RESULT = ae;
+                {: RESULT = new AssignStmtNode(ae);
                 :}
                 | loc:l PLUSPLUS SEMICOLON
                 {: RESULT = new PostIncStmtNode(l);
@@ -270,7 +270,7 @@ stmt            ::= assignExp:ae SEMICOLON
                 ;
 
 assignExp       ::= loc:l ASSIGN exp:e
-                {:RESULT = new AssignExpNode(l, e);
+                {:RESULT = new AssignNode(l, e);
                 :}
                 ;
 
