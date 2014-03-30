@@ -352,6 +352,7 @@ class BoolNode extends TypeNode {
     }
 
     public void unparse(PrintWriter p, int indent) {
+        p.print("bool");
     }
 }
 
@@ -360,6 +361,7 @@ class VoidNode extends TypeNode {
     }
 
     public void unparse(PrintWriter p, int indent) {
+        p.print("void");
     }
 }
 
@@ -369,6 +371,7 @@ class StructNode extends TypeNode {
     }
 
     public void unparse(PrintWriter p, int indent) {
+        p.print("struct");
     }
 	
 	// 1 kid
@@ -388,6 +391,7 @@ class AssignStmtNode extends StmtNode {
     }
 
     public void unparse(PrintWriter p, int indent) {
+        myAssign.unparse(p, indent);
     }
 
     // 1 kid
@@ -400,6 +404,8 @@ class PostIncStmtNode extends StmtNode {
     }
 
     public void unparse(PrintWriter p, int indent) {
+        myExp.unparse(p, indent);
+        p.println("++;");
     }
 
     // 1 kid
@@ -412,6 +418,8 @@ class PostDecStmtNode extends StmtNode {
     }
 
     public void unparse(PrintWriter p, int indent) {
+        myExp.unparse(p, indent);
+        p.println("--;");
     }
 
     // 1 kid
@@ -422,8 +430,13 @@ class ReadStmtNode extends StmtNode {
     public ReadStmtNode(ExpNode e) {
         myExp = e;
     }
-
+    //CIN READ loc:l SEMICOLON
     public void unparse(PrintWriter p, int indent) {
+        doIndent(p, indent);
+        p.print("cin >> ");
+        myExp.unparse(p, 0);
+        p.print(";");
+        p.println();
     }
 
     // 1 kid (actually can only be an IdNode or an ArrayExpNode)
@@ -434,8 +447,13 @@ class WriteStmtNode extends StmtNode {
     public WriteStmtNode(ExpNode exp) {
         myExp = exp;
     }
-
+    //COUT WRITE exp:e SEMICOLON
     public void unparse(PrintWriter p, int indent) {
+        doIndent(p, indent);
+        p.print("cout << ");
+        myExp.unparse(p, 0);
+        p.print(";");
+        p.println();
     }
 
     // 1 kid
@@ -448,8 +466,17 @@ class IfStmtNode extends StmtNode {
         myExp = exp;
         myStmtList = slist;
     }
-
+    //IF LPAREN exp:e RPAREN LCURLY varDeclList:vdl1 stmtList:sl1 RCURLY
     public void unparse(PrintWriter p, int indent) {
+        doIndent(p, indent);
+        p.print("if(");
+        myExp.unparse(p, 0);
+        p.println("){");
+        myDeclList.unparse(p, indent + 1);
+        myStmtList.unparse(p, indent + 1);
+        doIndent(p, indent);
+        p.print("}");
+        p.println();
     }
 
     // e kids
@@ -468,8 +495,17 @@ class IfElseStmtNode extends StmtNode {
         myElseDeclList = dlist2;
         myElseStmtList = slist2;
     }
-
+    //IF LPAREN exp:e RPAREN LCURLY varDeclList:vdl1 stmtList:sl1 RCURLY 
+    //ELSE LCURLY varDeclList:vdl2 stmtList:sl2 RCURLY
     public void unparse(PrintWriter p, int indent) {
+        IfStmtNode isn = new IfStmtNode(myExp, myThenDeclList, myThenStmtList);
+        isn.unparse(p, indent);
+        doIndent(p, indent);
+        p.println("else{");
+        myElseDeclList.unparse(p, indent + 1);
+        myElseStmtList.unparse(p, indent + 1);
+        doIndent(p, indent);
+        p.println("}");
     }
 
     // 5 kids
@@ -486,8 +522,17 @@ class WhileStmtNode extends StmtNode {
         myDeclList = dlist;
         myStmtList = slist;
     }
-	
+	//WHILE LPAREN exp:e RPAREN LCURLY varDeclList:vdl stmtList:sl RCURLY
     public void unparse(PrintWriter p, int indent) {
+        doIndent(p, indent);
+        p.print("while(");
+        myExp.unparse(p, 0);
+        p.println("){");
+        myDeclList.unparse(p, indent + 1);
+        myStmtList.unparse(p, indent + 1);
+        doIndent(p, indent);
+        p.println("}");
+
     }
 
     // 3 kids
