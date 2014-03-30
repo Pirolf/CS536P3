@@ -28,8 +28,8 @@ public void syntax_error(Symbol currToken) {
 terminal                INT;
 terminal                BOOL;
 terminal                VOID;
-terminal                TRUE;
-terminal                FALSE;
+terminal TokenVal       TRUE;
+terminal TokenVal       FALSE;
 terminal                STRUCT;
 terminal                CIN;
 terminal                COUT;
@@ -124,15 +124,15 @@ declList        ::= declList:dl decl:d
                 :}
                 ;
 
-decl            ::= varDecl:v
-                {: RESULT = v;
-                :}
-		| fnDecl:fd
-		{: RESULT = fd;
-		:}
-		| structDecl:sd
-		{: RESULT = sd;
-		:}
+decl     ::= varDecl:v
+         {: RESULT = v;
+         :}
+         | fnDecl:fd
+         {: RESULT = fd;
+         :}
+         | structDecl:sd
+         {: RESULT = sd;
+         :}
                 ; 
 
 varDeclList     ::= varDeclList:vdl varDecl:vd
@@ -188,42 +188,42 @@ formals         ::= LPAREN RPAREN
 
 formalsList     ::= formalDecl:fd
                 {: LinkedList<FormalDeclNode> lst = new LinkedList<FormalDeclNode>();
-	        lst.add(fd);
-		RESULT = lst;
+                lst.add(fd);
+                RESULT = lst;
                 :}
                 | formalDecl:fd COMMA formalsList:fl
                 {: fl.addFirst(fd);
-		RESULT = fl;
+                RESULT = fl;
                 :}
                 ;
 
 
-fnDecl          ::= type:t id:i formals:f fnBody:fb
-                {: RESULT = new FuncDeclNode(t, i, f, fb);
-                :}   				
-                ;
+fnDecl      ::= type:t id:i formals:f fnBody:fb
+            {: RESULT = new FuncDeclNode(t, i, f, fb);
+            :}   				
+            ;
 
 structDecl	::= STRUCT id:i LCURLY structBody:sb RCURLY SEMICOLON
-		{: RESULT = new StructDeclNode(i, new DeclListNode(sb));
-		:}
-		;
+	         {: RESULT = new StructDeclNode(i, new DeclListNode(sb));
+            :}
+            ;
 		
 structBody	::= structBody:sb varDecl:vd
-		{: sb.addLast(vd);
-		RESULT = sb;
-		:}
-		| varDecl:vd
-		{: LinkedList<VarDeclNode> lst = new LinkedList<VarDeclNode>();
-		lst.add(vd);
-		RESULT = lst;
-		:}
-		;
+	      	{: sb.addLast(vd);
+      		RESULT = sb;
+      		:}
+      		| varDecl:vd
+      		{: LinkedList<VarDeclNode> lst = new LinkedList<VarDeclNode>();
+      		lst.add(vd);
+        	   RESULT = lst;
+            :}
+            ;
 
 
-fnBody          ::= LCURLY varDeclList:vdl stmtList:sl RCURLY
-                {: RESULT = new FuncBodyNode(vdl, sl);
-                :}
-                ;
+fnBody      ::= LCURLY varDeclList:vdl stmtList:sl RCURLY
+            {: RESULT = new FuncBodyNode(vdl, sl);
+            :}
+            ;
 
 stmtList        ::= stmtList:sl stmt:s
                 {: sl.addLast(s);
@@ -325,7 +325,7 @@ exp		::= assignExp:ae
 		;
 
 term		::= loc:l
-		{: RESULT = l
+		{: RESULT = l;
 		:}
 		| INTLITERAL:i
 		{: RESULT = new IntLitNode(i.linenum, i.charnum, i.intVal);
