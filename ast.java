@@ -160,6 +160,15 @@ class FormalsListNode extends ASTnode {
     }
 
     public void unparse(PrintWriter p, int indent) {
+        Iterator it = myFormals.iterator();
+        try{
+            while(it.hasNext()){
+                ((FormalDeclNode)it.next()).unparse(p, indent);
+            }
+        }catch(NoSuchElementException ex) {
+            System.err.println("unexpected NoSuchElementException in FormalDeclNode.print");
+            System.exit(-1);
+        }
     }
 
     // list of kids (FormalDeclNodes)
@@ -173,6 +182,8 @@ class FnBodyNode extends ASTnode {
     }
 
     public void unparse(PrintWriter p, int indent) {
+        myDeclList.unparse(p, indent);
+        myStmtList.unparse(p, indent);
     }
 
     // 2 kids
@@ -186,6 +197,15 @@ class StmtListNode extends ASTnode {
     }
 
     public void unparse(PrintWriter p, int indent) {
+        Iterator it = myStmts.iterator();
+        try{
+            while(it.hasNext()){
+                ((StmtNode)it.next()).unparse(p, indent);
+            }
+        }catch(NoSuchElementException ex) {
+            System.err.println("unexpected NoSuchElementException in StmtNode.print");
+            System.exit(-1);
+        }
     }
 
     // list of kids (StmtNodes)
@@ -198,6 +218,15 @@ class ExpListNode extends ASTnode {
     }
 
     public void unparse(PrintWriter p, int indent) {
+        Iterator it = myStmts.iterator();
+        try{
+            while(it.hasNext()){
+                ((ExpNode)it.next()).unparse(p, indent);
+            }
+        }catch(NoSuchElementException ex) {
+            System.err.println("unexpected NoSuchElementException in ExpNode.print");
+            System.exit(-1);
+        }
     }
 
     // list of kids (ExpNodes)
