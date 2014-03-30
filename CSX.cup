@@ -187,13 +187,16 @@ formals         ::= LPAREN RPAREN
                 ;
 
 formalsList     ::= formalDecl:fd
-                {: RESULT = new LinkedList<FormalDeclNode>(fd);
+                {: LinkedList<FormalDeclNode> lst = new LinkedList<FormalDeclNode>();
+	        lst.add(fd);
+		RESULT = lst;
                 :}
                 | formalDecl:fd COMMA formalsList:fl
                 {: fl.addFirst(fd);
-					 	 RESULT = fl;
+		RESULT = fl;
                 :}
                 ;
+
 
 fnDecl          ::= type:t id:i formals:f fnBody:fb
                 {: RESULT = new FuncDeclNode(t, i, f, fb);
@@ -204,15 +207,18 @@ structDecl	::= STRUCT id:i LCURLY structBody:sb RCURLY SEMICOLON
 		{: RESULT = new StructDeclNode(i, new DeclListNode(sb));
 		:}
 		;
-
+		
 structBody	::= structBody:sb varDecl:vd
 		{: sb.addLast(vd);
 		RESULT = sb;
 		:}
 		| varDecl:vd
-		{: RESULT = new LinkedList<VarDeclNode>(vd);
+		{: LinkedList<VarDeclNode> lst = new LinkedList<VarDeclNode>();
+		lst.add(vd);
+		RESULT = lst;
 		:}
 		;
+
 
 fnBody          ::= LCURLY varDeclList:vdl stmtList:sl RCURLY
                 {: RESULT = new FuncBodyNode(vdl, sl);
@@ -229,7 +235,7 @@ stmtList        ::= stmtList:sl stmt:s
                 ;
 
 stmt            ::= assignExp:ae SEMICOLON
-                {: RESULT = new StmtNode(ae);
+                {: RESULT = ae;
                 :}
                 | loc:l PLUSPLUS SEMICOLON
 		{: RESULT = new PostIncStmtNode(l);
@@ -250,7 +256,7 @@ stmt            ::= assignExp:ae SEMICOLON
                 {: RESULT = new IfElseStmtNode(e, vdl1, sl1, vdl2, sl2); 
 		:}
 		| WHILE LPAREN exp:e RPAREN LCURLY varDeclList:vdl stmtList:sl RCURLY
-                {: RESULT = new WhileStmtNode(e, vdl, sl);
+                {: RESULT = new WhileStmtNode(e, new DeclListNode(vdl), new StmtListNode(sl));
 		:}
 		| RETURN exp:e SEMICOLON
                 {: RESULT = new ReturnStmtNode(e);
@@ -345,12 +351,14 @@ fncall		::= id:i LPAREN RPAREN
 		{: RESULT = new CallExpNode(i, null);
 		:}
 		| id:i LPAREN actualList:al RPAREN
-		{: RESULT = new CallExpNode(i, al);
+		{: RESULT = new CallExpNode(i, new ExpListNode(al));
 		:}
 		;
 
 actualList	::= exp:e
-		{: RESULT = new LinkedList<ExpNode>(e);
+		{: LinkedList<ExpNode> lst = new LinkedList<ExpNode>();
+		lst.add(e);
+		RESULT = lst;
 		:}
 		| actualList:al COMMA exp:e
 		{: al.addLast(e);
