@@ -275,6 +275,15 @@ class FnDeclNode extends DeclNode {
     }
 
     public void unparse(PrintWriter p, int indent) {
+        doIndent(p, indent);
+        myType.unparse(p, 0);
+        p.print(" ");
+        myId.unparse(p, 0);
+        p.print(" ");
+        myFormalsList.unparse(p, 0);
+        p.print(" ");
+        myBody.unparse(p, 0);
+        //p.println(";");
     }
 
     // 4 kids
@@ -291,6 +300,9 @@ class FormalDeclNode extends DeclNode {
     }
 
     public void unparse(PrintWriter p, int indent) {
+        myType.unparse(p, 0);
+        p.print(" ");
+        myId.unparse(p, 0);
     }
 
     // 2 kids
@@ -303,8 +315,15 @@ class StructDeclNode extends DeclNode {
         myId = id;
 		myDeclList = declList;
     }
-
+    //STRUCT id LCURLY structBody RCURLY SEMICOLON
     public void unparse(PrintWriter p, int indent) {
+        doIndent(p, indent);
+        p.print("struct ");
+        myId.unparse(p, 0);
+        p.println("{");
+        doIndent(p, indent + 1);
+        myDeclList.parse(p, indent + 1);
+
     }
 
     // 2 kids
