@@ -176,6 +176,7 @@ class FormalsListNode extends ASTnode {
                 System.err.println("unexpected NoSuchElementException in FormalDeclNode.print");
                 System.exit(-1);
             }
+        }
     }
 
     // list of kids (FormalDeclNodes)
@@ -737,7 +738,8 @@ class CallExpNode extends ExpNode {
         doIndent(p, indent);
         myId.unparse(p, 0);
         p.print("(");
-        //myExpList.unparse(p, 0);
+        myExpList.unparse(p, 0);
+        /*
         Iterator it = myExpList.iterator();
         try{
             boolean isFirst = true;
@@ -753,6 +755,7 @@ class CallExpNode extends ExpNode {
             System.err.println("unexpected NoSuchElementException in ExpNode.print");
             System.exit(-1);
         }
+        */
         p.print(")");
     }
 
