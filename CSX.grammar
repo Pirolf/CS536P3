@@ -27,7 +27,7 @@ fnDecl          ::= type id formals fnBody
 structDecl      ::= STRUCT id LCURLY structBody RCURLY SEMICOLON
                 ;
                 
-structBody      ::= varDeclList varDecl
+structBody      ::= structBody varDecl
                 | varDecl
                 ;
                 

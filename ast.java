@@ -254,14 +254,20 @@ class VarDeclNode extends DeclNode {
     }
 
     public void unparse(PrintWriter p, int indent) {
-        if(mySize == NOT_STRUCT){            
+        if(mySize == NOT_STRUCT){ 
+               doIndent(p, indent);
+                myType.unparse(p, 0);
+             p.print(" ");
+             myId.unparse(p, 0);
+            p.println(";"); 
+                   
+            
+        }else{
             doIndent(p, indent);
             myType.unparse(p, 0);
             p.print(" ");
             myId.unparse(p, 0);
             p.println(";");
-        }else{
-
         }
     }
 
@@ -384,7 +390,9 @@ class StructNode extends TypeNode {
     }
 
     public void unparse(PrintWriter p, int indent) {
-        p.print("struct");
+        doIndent(p, indent);
+        p.print("struct ");
+        myId.unparse(p, 0);
     }
 	
 	// 1 kid
