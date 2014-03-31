@@ -163,7 +163,7 @@ class FormalsListNode extends ASTnode {
         Iterator it = myFormals.iterator();
         try{
             boolean isFirst = true;
-            while(it.hasNext() && isFirst){
+            while(it.hasNext()){
               if(isFirst){
                   isFirst = false;
               }else{
@@ -418,7 +418,8 @@ class PostIncStmtNode extends StmtNode {
     }
 
     public void unparse(PrintWriter p, int indent) {
-        myExp.unparse(p, indent);
+        doIndent(p, indent);
+        myExp.unparse(p, 0);
         p.println("++;");
     }
 
@@ -599,6 +600,7 @@ class IntLitNode extends ExpNode {
     }
 
     public void unparse(PrintWriter p, int indent) {
+        doIndent(p, indent);
         p.print(myIntVal);
     }
 
@@ -615,6 +617,7 @@ class StringLitNode extends ExpNode {
     }
 
     public void unparse(PrintWriter p, int indent) {
+        doIndent(p, indent);
         p.print(myStrVal);
     }
 
@@ -630,6 +633,7 @@ class TrueNode extends ExpNode {
     }
 
     public void unparse(PrintWriter p, int indent) {
+        doIndent(p, indent);
         p.print("true");
     }
 
@@ -644,6 +648,7 @@ class FalseNode extends ExpNode {
     }
 
     public void unparse(PrintWriter p, int indent) {
+        doIndent(p, indent);
         p.print("false");
     }
 
@@ -696,7 +701,6 @@ class AssignNode extends ExpNode {
         myLhs.unparse(p, 0);
         p.print(" = ");
         myExp.unparse(p, 0);
-        p.println(";");
     }
 
     // 2 kids
