@@ -147,6 +147,9 @@ varDeclList     ::= varDeclList:vdl varDecl:vd
 varDecl         ::= type:t id:i SEMICOLON
                 {: RESULT = new VarDeclNode(t, i, VarDeclNode.NOT_STRUCT);
                 :}
+                | STRUCT id:st id:i SEMICOLON
+                {: RESULT = new VarDeclNode(new StructNode(st), i, 0);
+                :}
                 ;
 
 type     ::= INT
