@@ -161,22 +161,21 @@ class FormalsListNode extends ASTnode {
 
     public void unparse(PrintWriter p, int indent) {
         if (myFormals != null) {
-           Iterator it = myFormals.iterator();
+          Iterator it = myFormals.iterator();
            try{
-               boolean isFirst = true;
+                boolean isFirst = true;
                while(it.hasNext()){
-                 if(isFirst){
-                     isFirst = false;
+                  if(isFirst){
+                      isFirst = false;
                  }else{
                      p.print(", ");
                  }  
-                 ((FormalDeclNode)it.next()).unparse(p, indent);  
-               }
-           }catch(NoSuchElementException ex) {
-               System.err.println("unexpected NoSuchElementException in FormalDeclNode.print");
-               System.exit(-1);
-           }
-        }
+                  ((FormalDeclNode)it.next()).unparse(p, indent);  
+                }
+            }catch(NoSuchElementException ex) {
+                System.err.println("unexpected NoSuchElementException in FormalDeclNode.print");
+                System.exit(-1);
+            }
     }
 
     // list of kids (FormalDeclNodes)
@@ -586,13 +585,13 @@ class ReturnStmtNode extends StmtNode {
     }
     //RETURN exp:e SEMICOLON
     public void unparse(PrintWriter p, int indent) {
-        doIndent(p, indent);
-        p.print("return");
+        doIndent(p,indent);
+         p.print("return");
         if (myExp != null) {
-           p.print(" ");
-           myExp.unparse(p, 0);
+            p.print(" ");
+            myExp.unparse(p, 0);
         }
-        p.println(";");
+         p.println(";");
     }
 
     // 1 kid
@@ -738,7 +737,22 @@ class CallExpNode extends ExpNode {
         doIndent(p, indent);
         myId.unparse(p, 0);
         p.print("(");
-        myExpList.unparse(p, 0);
+        //myExpList.unparse(p, 0);
+        Iterator it = myExpList.iterator();
+        try{
+            boolean isFirst = true;
+            while(it.hasNext()){
+                if(isFirst){
+                    isFirst = false;
+                }else{
+                    p.print(", ");
+                }
+                ((ExpNode)it.next()).unparse(p, indent);
+            }
+        }catch(NoSuchElementException ex) {
+            System.err.println("unexpected NoSuchElementException in ExpNode.print");
+            System.exit(-1);
+        }
         p.print(")");
     }
 
