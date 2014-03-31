@@ -162,8 +162,14 @@ class FormalsListNode extends ASTnode {
     public void unparse(PrintWriter p, int indent) {
         Iterator it = myFormals.iterator();
         try{
-            while(it.hasNext()){
-                ((FormalDeclNode)it.next()).unparse(p, indent);
+            boolean isFirst = true;
+            while(it.hasNext() && isFirst){
+              if(isFirst){
+                  isFirst = false;
+              }else{
+                  p.print(", ");
+              }  
+              ((FormalDeclNode)it.next()).unparse(p, indent);  
             }
         }catch(NoSuchElementException ex) {
             System.err.println("unexpected NoSuchElementException in FormalDeclNode.print");
@@ -282,6 +288,7 @@ class FnDeclNode extends DeclNode {
         p.print(" (");
         myFormalsList.unparse(p, 0);
         p.println("){");
+
         myBody.unparse(p, indent + 1);
         doIndent(p, indent);
         p.println("}");
@@ -322,8 +329,9 @@ class StructDeclNode extends DeclNode {
         p.print("struct ");
         myId.unparse(p, 0);
         p.println("{");
-        doIndent(p, indent + 1);
         myDeclList.parse(p, indent + 1);
+        doIndent(p, indent);
+        p.println("}");
 
     }
 
