@@ -19,5 +19,5 @@ func();
 if(x == 1){y = 2;}else{int z;z = 0; while(x < 3){z = 1; x++;}}
 cin >>filename;
 cout << "ha";
-return x;
+return;
 }
