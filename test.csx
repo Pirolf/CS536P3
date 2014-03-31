@@ -14,6 +14,7 @@ z = 3*(12+5);
 y = !(x==3 && !y);
  youhavetopass.m = 100;
 func(10, false);
+func();
 if(x == 1){y = 2;}else{int z;z = 0; while(x < 3){z = 1; x++;}}
 cin >>filename;
 cout << "ha";

@@ -205,6 +205,7 @@ class StmtListNode extends ASTnode {
     }
 
     public void unparse(PrintWriter p, int indent) {
+        if(myStmts == null || myStmts.size() == 0){return;}
         Iterator it = myStmts.iterator();
         try{
             while(it.hasNext()){
@@ -226,10 +227,19 @@ class ExpListNode extends ASTnode {
     }
 
     public void unparse(PrintWriter p, int indent) {
+        if(myExps == null || myExps.size() == 0){return;}
         Iterator it = myExps.iterator();
         try{
+            boolean isFirst = true;
             while(it.hasNext()){
+                if(isFirst){
+                    isFirst = false;
+                }else{
+                  p.print(", ");  
+                }
+                
                 ((ExpNode)it.next()).unparse(p, indent);
+
             }
         }catch(NoSuchElementException ex) {
             System.err.println("unexpected NoSuchElementException in ExpNode.print");
@@ -738,7 +748,10 @@ class CallExpNode extends ExpNode {
         doIndent(p, indent);
         myId.unparse(p, 0);
         p.print("(");
-        myExpList.unparse(p, 0);
+        if(!(myExpList == null)){
+            myExpList.unparse(p, 0);
+        }
+        
         /*
         Iterator it = myExpList.iterator();
         try{
