@@ -160,20 +160,22 @@ class FormalsListNode extends ASTnode {
     }
 
     public void unparse(PrintWriter p, int indent) {
-        Iterator it = myFormals.iterator();
-        try{
-            boolean isFirst = true;
-            while(it.hasNext()){
-              if(isFirst){
-                  isFirst = false;
-              }else{
-                  p.print(", ");
-              }  
-              ((FormalDeclNode)it.next()).unparse(p, indent);  
-            }
-        }catch(NoSuchElementException ex) {
-            System.err.println("unexpected NoSuchElementException in FormalDeclNode.print");
-            System.exit(-1);
+        if (myFormals != null) {
+           Iterator it = myFormals.iterator();
+           try{
+               boolean isFirst = true;
+               while(it.hasNext()){
+                 if(isFirst){
+                     isFirst = false;
+                 }else{
+                     p.print(", ");
+                 }  
+                 ((FormalDeclNode)it.next()).unparse(p, indent);  
+               }
+           }catch(NoSuchElementException ex) {
+               System.err.println("unexpected NoSuchElementException in FormalDeclNode.print");
+               System.exit(-1);
+           }
         }
     }
 
