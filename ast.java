@@ -722,9 +722,11 @@ class AssignNode extends ExpNode {
     //loc ASSIGN exp
     public void unparse(PrintWriter p, int indent) {
         doIndent(p, indent);
+        p.print("(");
         myLhs.unparse(p, 0);
         p.print(" = ");
         myExp.unparse(p, 0);
+        p.print(")");
     }
 
     // 2 kids

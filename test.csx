@@ -11,7 +11,7 @@ filename = "fpath";
  x = 1 + 2 + 3;
 z = 3*12+5;
 z = 3*(12+5);
-y = false = false;
+y = x = 3;
 y = !(x==3 && !y);
  youhavetopass.m = 100;
 func(10, false);
