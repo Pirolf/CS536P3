@@ -587,8 +587,12 @@ class ReturnStmtNode extends StmtNode {
     //RETURN exp:e SEMICOLON
     public void unparse(PrintWriter p, int indent) {
         doIndent(p, indent);
-        myExp.unparse(p, 0);
-        p.println("return;");
+        p.print("return");
+        if (myExp != null) {
+           p.print(" ");
+           myExp.unparse(p, 0);
+        }
+        p.println(";");
     }
 
     // 1 kid
