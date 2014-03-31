@@ -273,17 +273,18 @@ class FnDeclNode extends DeclNode {
         myFormalsList = formalList;
         myBody = body;
     }
-
+    //type:t id:i formals:f fnBody:fb
     public void unparse(PrintWriter p, int indent) {
         doIndent(p, indent);
         myType.unparse(p, 0);
         p.print(" ");
         myId.unparse(p, 0);
-        p.print(" ");
+        p.print(" (");
         myFormalsList.unparse(p, 0);
-        p.print(" ");
-        myBody.unparse(p, 0);
-        //p.println(";");
+        p.println("){");
+        myBody.unparse(p, indent + 1);
+        doIndent(p, indent);
+        p.println("}");
     }
 
     // 4 kids
