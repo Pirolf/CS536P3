@@ -795,8 +795,9 @@ class UnaryMinusNode extends UnaryExpNode {
 
     public void unparse(PrintWriter p, int indent) {
         doIndent(p, indent);
-        p.print("-");
+        p.print("(-");
         (this.myExp).unparse(p, 0);
+        p.print(")");
     }
 }
 
