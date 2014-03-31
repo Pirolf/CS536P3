@@ -808,8 +808,9 @@ class NotNode extends UnaryExpNode {
 
     public void unparse(PrintWriter p, int indent) {
         doIndent(p, indent);
-        p.print("!");
+        p.print("!(");
         (this.myExp).unparse(p, 0);
+        p.print(")");
     }
 }
 
@@ -824,9 +825,13 @@ class PlusNode extends BinaryExpNode {
     //exp:e1 PLUS exp:e2
     public void unparse(PrintWriter p, int indent) {
         doIndent(p, indent);
+        p.print("(");
         (this.myExp1).unparse(p, 0);
+        
         p.print(" + ");
         (this.myExp2).unparse(p, 0);
+        p.print(")");
+        
     }
 }
 
