@@ -696,6 +696,7 @@ class AssignNode extends ExpNode {
         myLhs.unparse(p, 0);
         p.print(" = ");
         myExp.unparse(p, 0);
+        p.println(";");
     }
 
     // 2 kids
