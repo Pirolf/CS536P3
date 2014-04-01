@@ -20,9 +20,12 @@ solar.age++;
 isMilky = true;
 collided = false;
 
-if(!collided && isMilky && dim == 3 || age > 100){
+if(!collided && isMilky && dim != 3 || age > 100){
  while(age > 100 && !collided){ 
  cin>>universeData;
+ cout<< age<2;
+ collided = age<=3 && solar.dim >= 10;
+ age = 8*(2+3);
  cout<<"data read";
  cout<<age + 1 - 1;}
 }else{
