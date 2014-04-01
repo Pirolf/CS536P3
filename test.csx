@@ -1,23 +1,43 @@
-struct youhavetopass { int m;
-bool masdsa;};
+struct Universe{ int dim; int age;};
+bool isMilky;
 
-int func(int x, bool a){
-bool y;
-struct s t;
-int filename;
-int z;
-filename = "fpath";
- x = -1; y = true; 
- x = 1 + 2 + 3;
-z = 3*12+5;
-z = 3*(12+5);
-y = x = 3;
-y = !(x==3 && !y);
- youhavetopass.m = 100;
-func(10, false);
-func();
-if(x == 1){y = 2;}else{int z;z = 0; while(x < 3){z = 1; x++;}}
-cin >>filename;
-cout << "ha";
-return;
+void collideWith(bool univ, int intensity){
+int universeData;
+bool collided;
+struct Universe solar;
+
+universeData = "/u1/u2/u3/un";
+solar.dim = 3;
+solar.age = 4/2+3*4-2+10*11*12+5;
+solar.age--;
+solar.age++;
+isMilky = true;
+collided = false;
+if(!collided && isMilky || age > 100){
+ while(age > 100 && !collided){ 
+ cin>>universeData;
+ cout<<"data read";
+ cout<<age + 1 - 1;}
+}else{
+ return;
 }
+while(age < 3000){
+ collide();
+ collideHard(3);
+ collideHarder(true, 100, "ahhhh");
+ if(collided){
+  return collided;
+ }else{
+  if(age == 3000 * 2){
+
+       return energyLevel() + 3 * 2;
+  }
+ }
+return collideAtMaxIntensity();
+}
+
+
+
+
+}
+
