@@ -2,6 +2,7 @@
 struct Universe{ int dim; int age;};
 //decl->varDecl
 bool isMilky;
+void thisIsNonsense;
 //decl->fnDecl
 //fnDecl->type id formals fnBody
 void collideWith(bool univ, int intensity){
