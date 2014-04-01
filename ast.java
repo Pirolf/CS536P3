@@ -704,7 +704,9 @@ class DotAccessExpNode extends ExpNode {
     //loc:l DOT id:i
     public void unparse(PrintWriter p, int indent) {
         doIndent(p, indent);
+        //p.print("(");
         myLoc.unparse(p, 0);
+       // p.print(")");
         p.print(".");
         myId.unparse(p, 0);
     }

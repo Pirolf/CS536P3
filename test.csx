@@ -15,7 +15,7 @@ universeData = "/u1/u2/u3/un" == "/u1/u2/u3/";
 negIntensity = -intensity; 
 solar.dim = 3;
 solar.age = 4/2+3*4-2+10*11*12+5;
-solar.age--;
+solar.age.whoknows--;
 solar.age++;
 isMilky = true;
 collided = false;
